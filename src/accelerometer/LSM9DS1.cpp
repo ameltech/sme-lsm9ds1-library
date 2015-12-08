@@ -171,7 +171,7 @@ int
 LSM9DS1_A::readZ()
 {
     int data = 0;
-    if (readInternal(AG_ACC_Z_H, AG_ACC_Y_L, &data)) {
+    if (readInternal(AG_ACC_Z_H, AG_ACC_Z_L, &data)) {
         _z = data;
     }
     // Decode Accel z-axis  [mdps measurement unit]
@@ -295,7 +295,7 @@ LSM9DS1_M::activate(void)
     return true;
 }
 
-bool 
+bool
 LSM9DS1_M::deactivate(void)
 {
     uint8_t data;
