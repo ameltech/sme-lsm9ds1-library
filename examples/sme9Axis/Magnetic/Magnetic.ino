@@ -21,6 +21,7 @@
 
 // the setup function runs once when you press reset or power the board
 void setup() {
+    Wire.begin();
     smeMagnetic.begin();
     SerialUSB.begin(115200);
 }
