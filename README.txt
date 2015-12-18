@@ -1,1 +1,0 @@
-Smart Everything, library for lsm9ds1 inertial module
