@@ -284,6 +284,8 @@ bool LSM9DS1_M::begin(void)
 bool LSM9DS1_M::activate(void)
 {
     uint8_t data;
+    union u_LSM9DS1_REG_CTRL_REG1_M ctrl_reg1_m;
+    union u_LSM9DS1_REG_CTRL_REG4_M ctrl_reg4_m;
 
     data = readRegister(addr(), M_CTRL_REG3_G);
     // data |= POWER_UP;
@@ -292,6 +294,22 @@ bool LSM9DS1_M::activate(void)
     // data &= (0xFC);
 
     writeRegister(addr(), M_CTRL_REG3_G, data);
+
+    /* Magnetometer configuration registers */
+    ctrl_reg1_m.byte = 0;
+    ctrl_reg1_m.byte = LSM9DS1_DO_M_80_000_HZ;
+    /* "LOW_POWER" permite operar o magnetômetro a 1 kHz. */
+    /* q->ctrl_reg1_m.operative_mode_xy = LSM9DS1_OM_M_ULTRA_HIGH_PERFORMANCE; */
+    ctrl_reg1_m.operative_mode_xy = LSM9DS1_OM_M_LOW_POWER;
+    ctrl_reg1_m.fast_odr = 1;
+    ctrl_reg1_m.temp_comp = 1;
+    writeRegister(addr(), M_CTRL_REG1_G, data);
+
+    ctrl_reg4_m.byte = 0;
+    /* "LOW_POWER" permite operar o magnetômetro a 1 kHz. */
+    /* ctrl_reg4_m.operative_mode_z = LSM9DS1_OMZ_M_ULTRA_HIGH_PERFORMANCE;*/
+    ctrl_reg4_m.operative_mode_z = LSM9DS1_OMZ_M_LOW_POWER;
+    writeRegister(addr(), M_CTRL_REG4_G, data);
 
     return true;
 }
