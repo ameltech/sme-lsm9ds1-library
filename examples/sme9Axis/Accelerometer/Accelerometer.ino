@@ -18,15 +18,20 @@
 
 #include <LSM9DS1.h>
 
+#define SerialUSB Serial
+
+inline void ledBlueLight(int) {}
 
 // the setup function runs once when you press reset or power the board
-void setup() {
+void setup()
+{
     Wire.begin();
     smeAccelerometer.begin();
     SerialUSB.begin(115200);
 }
 
-void printAxis(int x, int y, int z) {
+void printAxis(int x, int y, int z)
+{
     SerialUSB.print("  X = ");
     SerialUSB.print(x, DEC);
     SerialUSB.print("     Y = ");
@@ -36,7 +41,8 @@ void printAxis(int x, int y, int z) {
 }
 
 // the loop function runs over and over again forever
-void loop() {
+void loop()
+{
 
     int x = 0;
     int y = 0;
@@ -49,11 +55,9 @@ void loop() {
     SerialUSB.print("Accelerometer [mg]      :");
     printAxis(x, y, z);
 
-
     ledBlueLight(LOW);
     delay(100);
 
-    ledBlueLight(HIGH);    // turn the LED on
-    delay(500);            // wait for a second
-
+    ledBlueLight(HIGH); // turn the LED on
+    delay(500);         // wait for a second
 }
